@@ -72,7 +72,7 @@ in
 
               controls = {
                 { icon = "􀆺", app = system_menu_host, id = "com.apple.menuextra.focusmode" },
-                { icon = "􀌆", app = "com.vorssaint.utils", id = "0" },
+                --{ icon = "􀌆", app = "com.finetuneapp.FineTune", id = "0" },
               }
 
 

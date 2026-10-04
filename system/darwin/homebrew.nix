@@ -58,7 +58,9 @@
           "macusb"
           # "disk-inventory-x"
           "radix"
-          "vorssaint"
+          # "vorssaint"
+          "finetune"
+          "airwave"
           #"picoscope"
 
           # Media

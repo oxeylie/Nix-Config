@@ -41,6 +41,10 @@
     done
   ''}/bin/quit-all-apps";
 
+  startup-disk = "${pkgs.writeShellScriptBin "startup-disk" ''
+    open x-apple.systempreferences:com.apple.Startup-Disk-Settings.extension
+  ''}/bin/startup-disk";
+
   shutdown = "${pkgs.writeShellScriptBin "shutdown" ''
     osascript -e 'tell app "loginwindow" to «event aevtrsdn»'
   ''}/bin/shutdown";
@@ -73,21 +77,21 @@
   ''}/bin/stickies-new";
 
   stickies-clipboard = "${pkgs.writeShellScriptBin "stickies-clipboard" ''
-    osascript -e '
-      tell application "Stickies" to activate
-      tell application "System Events" to tell process "Stickies"
-        repeat until menu "File" of menu bar 1 exists
-          delay 0.02
-        end repeat
-        click menu item "New Note" of menu "File" of menu bar 1
+        osascript -e '
+          tell application "Stickies" to activate
+          tell application "System Events" to tell process "Stickies"
+            repeat until menu "File" of menu bar 1 exists
+              delay 0.02
+            end repeat
+            click menu item "New Note" of menu "File" of menu bar 1
 
-        set frontmost to true
+            set frontmost to true
 
-		    repeat until menu "Edit" of menu bar 1 exists
-		    	delay 0.02
-		    end repeat
-		    click menu item "Paste" of menu "Edit" of menu bar 1
-      end tell'
+    		    repeat until menu "Edit" of menu bar 1 exists
+    		    	delay 0.02
+    		    end repeat
+    		    click menu item "Paste" of menu "Edit" of menu bar 1
+          end tell'
   ''}/bin/stickies-clipboard";
 
   stickies-clear = "${pkgs.writeShellScriptBin "stickies-clear" ''

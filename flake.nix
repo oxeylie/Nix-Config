@@ -99,6 +99,10 @@
       url = "github:deskflow/homebrew-tap";
       flake = false;
     };
+    homebrew-airwave = {
+      url = "github:sallliisa/homebrew-airwave";
+      flake = false;
+    };
 
     ################### Custom sources ###################
 
@@ -262,6 +266,7 @@
                     "Sirakugir-App/homebrew-sirakugir" = inputs.homebrew-sirakugir;
                     "keith/homebrew-formulae" = inputs.homebrew-keith;
                     "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
+                    "sallliisa/homebrew-airwave" = inputs.homebrew-airwave;
                   };
                 };
               }
@@ -293,6 +298,7 @@
                 darwin-system.external-drive.path = "/Volumes/Data";
                 darwin-system.wacom-driver.enable = true;
                 system-pkgs.additionnals = true;
+                system-pkgs.gui = true;
 
                 ## Packages config
                 nix.linux-builder = {

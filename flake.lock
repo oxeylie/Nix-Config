@@ -223,6 +223,22 @@
         "type": "github"
       }
     },
+    "homebrew-airwave": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789299928,
+        "narHash": "sha256-cycsFuiO2Nm/pqBH9zbOuJb6uhMtUALKisxqL60NqpM=",
+        "owner": "sallliisa",
+        "repo": "homebrew-airwave",
+        "rev": "8b7946f9b5f7392f93c1275c8196d28bf37518ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sallliisa",
+        "repo": "homebrew-airwave",
+        "type": "github"
+      }
+    },
     "homebrew-betterdisplay": {
       "flake": false,
       "locked": {
@@ -573,6 +589,7 @@
       "inputs": {
         "crane": "crane",
         "home-manager": "home-manager",
+        "homebrew-airwave": "homebrew-airwave",
         "homebrew-betterdisplay": "homebrew-betterdisplay",
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",

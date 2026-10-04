@@ -135,6 +135,7 @@ in
       # === Utilities ===
       ctrl + cmd + alt - t : open /Applications/Ghostty.app
       ctrl + cmd + alt - q : ${common.quit-all-apps}
+      ctrl + cmd + alt - s : ${common.startup-disk}
       shift + ctrl + alt - q : ${common.screensaver}
       alt + ctrl - escape : ${common.shutdown}
       cmd + ctrl - escape : ${common.restart}
@@ -149,7 +150,7 @@ in
       ''}/bin/blck-dialog
       ctrl + cmd + alt - tab ; block
       block < ctrl + cmd + alt - tab ; default
-      
+
       # === Stickies ===
       :: stickies
       ctrl + cmd + alt - y : ${common.stickies-toggle} 

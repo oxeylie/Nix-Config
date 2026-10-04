@@ -4,14 +4,14 @@
     enable = true;
     settings = {
       user = {
-        email = "kcraft059.msg@gmail.com";
-        name = "Kcraft059";
+        email = "oxeylie@gmail.com";
+        name = "oxeylie";
         signingKey = global-config.sops.secrets.ssh-id-ed25519.path;
       };
       gpg.format = "ssh";
       commit.gpgsign = true;
       gpg.ssh.allowedSignersFile = "${pkgs.writeText "allowed-signers" ''
-        kcraft059.msg@gmail.com ${builtins.readFile ../../resources/ssh-id-ed25519.pub}
+        oxeylie@gmail.com ${builtins.readFile ../../resources/ssh-id-ed25519.pub}
       ''}";
       url = {
         "git@github.com:".insteadOf = "https://github.com/";
