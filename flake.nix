@@ -1,5 +1,5 @@
 {
-  description = "Multi Devices/OS Nix-Config for all my all my personnal devices - Camille - Kcraft⁰⁵⁹";
+  description = "Multi Devices/OS Nix-Config for all my all my personnal devices";
 
   /**
     This config implements common settings over multiple devices, tho
@@ -107,7 +107,7 @@
     ################### Custom sources ###################
 
     sketchybar-config = {
-      url = "github:Kcraft059/sketchybar-config/lua-port";
+      url = "github:oxeylie/sketchybar-config/lua-port";
       flake = false;
     };
 

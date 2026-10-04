@@ -60,7 +60,7 @@
       meta = with lib; {
         description = description;
         homepage = homepage;
-        maintainers = with maintainers; [ Kcraft059 ];
+        maintainers = with maintainers; [ oxeylie ];
         platforms = platforms.darwin;
       };
     };
