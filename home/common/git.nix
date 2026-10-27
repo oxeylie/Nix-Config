@@ -17,6 +17,7 @@
         "git@github.com:".insteadOf = "https://github.com/";
         "git@codeberg.org:".insteadOf = "https://codeberg.org/";
       };
+      advice.addIgnoredFile = false;
     };
     ignores = [
       "*~"

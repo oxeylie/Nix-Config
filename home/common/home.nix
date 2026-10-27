@@ -20,7 +20,7 @@
         eza # ls replacement
         viu # image viewer
         sops # Secret management
-        bear # generate compile_comand
+        compiledb # generate compile_comand
       ]
       ++ lib.optionals config.home-config.gui [
         audacity
