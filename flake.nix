@@ -498,7 +498,7 @@
                 home-manager.users.camille = {
                   home-config.gui = true;
                   home-config.plasma = true;
-                  home-config.userPicture = ./resources/vflower-1.jpg;
+                  home-config.userPicture = ./resources/oxeylie.jpg;
                 };
               }
             ];
@@ -581,7 +581,7 @@
                 home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
               }
             ];
-	  };
+          };
         in
         {
           ################### Config assignation ###################
