@@ -25,6 +25,8 @@ in
       wayland.enable = true;
     };
 
+    virtualisation.docker.enable = true;
+
     stylix.targets = {
       qt.enable = false;
     };

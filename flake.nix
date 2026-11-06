@@ -32,6 +32,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    apple-silicon-support = {
+      flake = false;
+      url = "github:nix-community/nixos-apple-silicon/?dir=apple-silicon-support&ref=main";
+    };
+
+    asahi-vendorfw = {
+      url = "./modules/asahi-vendorfw";
+    };
+
     ################### Utility Modules ###################
 
     sops-nix = {
@@ -101,6 +110,14 @@
     };
     homebrew-airwave = {
       url = "github:sallliisa/homebrew-airwave";
+      flake = false;
+    };
+    homebrew-sill = {
+      url = "github:saffsanity/homebrew-sill";
+      flake = false;
+    };
+    homebrew-anylinuxfs = {
+      url = "github:nohajc/homebrew-anylinuxfs";
       flake = false;
     };
 
@@ -246,9 +263,13 @@
                     inherit inputs themeUtils;
                     global-config = config;
                   };
-                  users.camille.imports = [
-                    ./home/darwin/default.nix
-                  ];
+                  users.camille = {
+                    imports = [
+                      ./home/darwin/default.nix
+                    ];
+                    targets.darwin.copyApps.enable = false;
+                    targets.darwin.linkApps.enable = true;
+                  };
                 };
 
                 ## Nix-homebrew top-config
@@ -267,6 +288,8 @@
                     "keith/homebrew-formulae" = inputs.homebrew-keith;
                     "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
                     "sallliisa/homebrew-airwave" = inputs.homebrew-airwave;
+                    "saffsanity/homebrew-sill" = inputs.homebrew-sill;
+                    "nohajc/homebrew-anylinuxfs" = inputs.homebrew-anylinuxfs;
                   };
                 };
               }
@@ -484,7 +507,7 @@
           ################### NixOS full-generic-regular ###################
           # MARK: NixOS full-generic-regular
 
-          full-generic-regular = full-generic // {
+          full-x86_64 = full-generic // {
             ### Module config
             system = "x86_64-linux"; # Inherit system for pkgs
 
@@ -502,7 +525,7 @@
           ################### NixOS full-generic-regular ###################
           # MARK: NixOS full-generic-rpi5
 
-          full-generic-rpi5 = full-generic // {
+          full-aarch64-rpi5 = full-generic // {
             ### Module config
             system = "aarch64-linux";
 
@@ -545,19 +568,38 @@
               }
             ];
           };
+          full-aarch64-asahi = full-generic // {
+            ### Module config
+            system = "x86_64-linux"; # Inherit system for pkgs
+
+            modules = full-generic.modules ++ [
+              ## Main system config
+              ./system/nixos/asahi/default.nix
+
+              {
+                ## Home manager config
+                home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
+              }
+            ];
+	  };
         in
         {
           ################### Config assignation ###################
           # MARK: Config assignation
 
-          full-regular = nixpkgs.lib.nixosSystem full-generic-regular;
-          full-rpi5 = nixos-raspberrypi.lib.nixosSystem full-generic-rpi5;
+          full-generic-x86_64 = nixpkgs.lib.nixosSystem full-x86_64;
+          full-generic-aarch64-rpi5 = nixos-raspberrypi.lib.nixosSystem full-aarch64-rpi5;
+          full-generic-aarch64-asahi = nixos-raspberrypi.lib.nixosSystem full-aarch64-asahi;
 
-          "LenovoYogaCam-i7" = mkFinalConfig nixpkgs.lib.nixosSystem full-generic-regular {
+          "MacBookAirCam-M3-asahi" = mkFinalConfig nixpkgs.lib.nixosSystem full-aarch64-asahi {
+            networking.hostName = "MacBookAirCam-M3-asahi";
+          };
+
+          "LenovoYogaCam-i7" = mkFinalConfig nixpkgs.lib.nixosSystem full-x86_64 {
             networking.hostName = "LenovoYogaCam-i7";
           };
 
-          "RpiCam-500plus" = mkFinalConfig nixos-raspberrypi.lib.nixosSystem full-generic-rpi5 {
+          "RpiCam-500plus" = mkFinalConfig nixos-raspberrypi.lib.nixosSystem full-aarch64-rpi5 {
             networking.hostName = "RpiCam-500plus";
           };
         };
@@ -569,8 +611,8 @@
 
       packages = {
         aarch64-darwin = self.darwinConfigurations.full.pkgs;
-        aarch64-linux = self.nixosConfigurations.full-rpi5.pkgs;
-        x86_64-linux = self.nixosConfigurations.full-regular.pkgs;
+        aarch64-linux = self.nixosConfigurations.full-generic-aarch64-rpi5.pkgs;
+        x86_64-linux = self.nixosConfigurations.full-generic-x86_64.pkgs;
       };
     };
 }

@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 let
   libresprite-patch = pkgs.libresprite.overrideAttrs (oldAttrs: {
-    postInstall = lib.optionalString pkgs.stdenv.isDarwin ''
+    postInstall = lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
       # Skip the thumbnailer substitution that fails on macOS
       echo "Skipping thumbnailer substitution on Darwin"
     '';

@@ -4,8 +4,8 @@ super.yabai.overrideAttrs (oldAttrs: {
   src = super.fetchFromGitHub {
     owner = "AhsanFazal";
     repo = "yabai";
-    rev = "8880b5cf3f8a7c0fbcc84f9cabcd58c6c9541c05"; # Or pin to a specific commit
-    hash = "sha256-KNQy7vtKUtF9wDRAHqK9GfhPN8/grNEW+3r5vudbvYY="; # Replace with actual hash
+    rev = "ad8d5adfdc39c76399599ae79a264f2525f6ca5e"; # Or pin to a specific commit
+    hash = "sha256-berfA3vYih1YuCCSBEvpocCn2EPj+ZpftPmsE65ILWo="; # Replace with actual hash
   };
   dontBuild = false;
   buildInputs = (oldAttrs.buildInputs or [ ]) ++ [ super.apple-sdk_15 ];

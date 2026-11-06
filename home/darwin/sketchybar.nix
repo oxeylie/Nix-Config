@@ -27,6 +27,7 @@ in
 
     programs.sketchybar = {
       enable = true;
+      package = pkgs.sketchybar-patch;
 
       service = rec {
         enable = true;

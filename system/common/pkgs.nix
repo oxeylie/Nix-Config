@@ -24,8 +24,8 @@
         pkgs.bindfs
         pkgs.sshfs
         pkgs.ntfs3g
-        pkgs.ext4fuse
-        pkgs.dislocker
+        # pkgs.ext4fuse
+        # pkgs.dislocker
         pkgs.ffmpeg
       ]
       ++ lib.optionals config.system-pkgs.gui [

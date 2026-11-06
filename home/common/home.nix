@@ -10,6 +10,7 @@
   };
 
   config = {
+    stylix.targets.rofi.enable = false;
     home.packages =
       with pkgs;
       [

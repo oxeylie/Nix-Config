@@ -52,8 +52,8 @@ let
     # === Layout Management ===
     ${super} + ${mod} - k : ${yabai} -m space --rotate 270
     ${super} + ${mod} - j : ${yabai} -m space --rotate 90
-    ${super} + ${mod} - m : ${yabai} -m space --layout bsp
-    ${super} + ${mod} - f : ${yabai} -m space --layout float
+    ${mod} + ${ctrl} + alt - m : ${yabai} -m space --layout bsp
+    ${mod} + ${ctrl} + alt - f : ${yabai} -m space --layout float
   '';
 
   aerospace = "${pkgs.aerospace}/bin/aerospace";

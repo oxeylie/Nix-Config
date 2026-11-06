@@ -16,16 +16,8 @@
     # Pre-activation patches
     system.activationScripts.homebrew.text = lib.mkBefore (
       ''
-                echo -e "Running Patches for Homebrew bundle..." >&2
-        	export HOMEBREW_NO_REQUIRE_TAP_TRUST=1
+        echo -e "Running Patches for Homebrew bundle..." >&2
       ''
-      /*
-        + (lib.concatStringsSep "\n" (
-          map (
-            tap: "su - ${config.nix-homebrew.user} -c '/opt/homebrew/bin/brew trust ${tap.name} > /dev/null';"
-          ) config.homebrew.taps
-        ))
-      */
       + lib.optionalString (builtins.any (c: c.name == "macfuse") config.homebrew.casks) ''
         echo -e "Patching macFuse dependency..." >&2
         touch /usr/local/include/fuse.h
@@ -61,6 +53,7 @@
           # "vorssaint"
           "finetune"
           "airwave"
+          "sill"
           #"picoscope"
 
           # Media
@@ -83,6 +76,7 @@
           "dyld-shared-cache-extractor"
         ]
         ++ lib.optionals config.homebrew-pkgs.brews [
+          "anylinuxfs"
           "betterdisplaycli"
           "mole"
         ]

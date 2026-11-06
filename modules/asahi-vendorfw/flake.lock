@@ -1,0 +1,24 @@
+{
+  "nodes": {
+    "boot-vendorfw": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793913770,
+        "narHash": "sha256-AZulfDl3xfd9Kbc3hvhL6sQG81/ptA1NAyT7iiZO/2A=",
+        "path": "/boot/vendorfw",
+        "type": "path"
+      },
+      "original": {
+        "path": "/boot/vendorfw",
+        "type": "path"
+      }
+    },
+    "root": {
+      "inputs": {
+        "boot-vendorfw": "boot-vendorfw"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

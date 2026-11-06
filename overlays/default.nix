@@ -10,4 +10,5 @@ self: super: {
   palera1n = super.callPackage ./palera1n.nix { };
 
   yabai-patch = import ./yabai.nix { inherit super; };
+  sketchybar-patch = import ./sketchybar.nix { inherit super; };
 }

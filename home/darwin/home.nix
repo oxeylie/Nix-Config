@@ -27,7 +27,6 @@
         macmon
       ]
       ++ lib.optionals config.home-config.gui [
-        raycast-beta
         libresprite-app
         prismlauncher
         signal-desktop
