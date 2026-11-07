@@ -2,7 +2,7 @@
 {
   name = "gruvbox_dark";
 
-  wallpaper = ./wallpapers/Lake.jpg;
+  wallpaper = ./wallpapers/Golden_Glitter.jpg;
 
   theme = "dark";
 
