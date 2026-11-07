@@ -15,7 +15,8 @@
       enable = true;
       avd.enable = true;
       avd.vaapi-support = false;
-      inherit (inputs.asahi-vendorfw.lib.hardware.asahi) peripheralFirmwareDirectory;
+      peripheralFirmwareDirectory = "${inputs.asahi-vendorfw}";
+      # inherit (inputs.asahi-vendorfw.lib.hardware.asahi) peripheralFirmwareDirectory;
     };
   };
 }

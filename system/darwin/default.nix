@@ -6,7 +6,7 @@
     ./system.nix
     ./wacom-driver.nix
     ./homebrew.nix
-    ./window-man/default.nix
+    ./../../modules/window-man/default.nix
     ../common/default.nix
   ];
   darwin-system.enable = lib.mkDefault true;

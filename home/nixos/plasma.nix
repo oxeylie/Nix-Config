@@ -138,10 +138,13 @@ in
                     "org.kde.plasma.volume"
                     "org.kde.plasma.networkmanagement"
                     "org.kde.plasma.bluetooth"
+                    "org.kde.plasma.battery"
+                    "org.kde.plasma.brightness"
                   ];
                   hidden = [
-                    "org.kde.plasma.battery"
                     "org.kde.kscreen"
+                    "org.kde.mercuro.contact.applet"
+                    "org.kde.clipboard"
                   ];
                 };
               }
@@ -177,19 +180,19 @@ in
         ];
 
       desktop.widgets = [
-        {
-          name = "org.kde.plasma.analogclock";
-          config.General.showSecondHand = true;
-
-          position = {
-            horizontal = 1920 - (builtins.elemAt config.programs.plasma.desktop.widgets 0).size.width;
-            vertical = (builtins.elemAt config.programs.plasma.panels 0).height + 10;
-          };
-          size = {
-            height = 175;
-            width = 175;
-          };
-        }
+        # {
+        #   name = "org.kde.plasma.analogclock";
+        #   config.General.showSecondHand = true;
+        #
+        #   position = {
+        #     horizontal = 1920 - (builtins.elemAt config.programs.plasma.desktop.widgets 0).size.width;
+        #     vertical = (builtins.elemAt config.programs.plasma.panels 0).height + 10;
+        #   };
+        #   size = {
+        #     height = 175;
+        #     width = 175;
+        #   };
+        # }
       ];
 
       ## Behaviour

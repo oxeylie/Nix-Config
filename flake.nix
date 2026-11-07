@@ -33,12 +33,13 @@
     };
 
     apple-silicon-support = {
-      flake = false;
       url = "github:nix-community/nixos-apple-silicon/?dir=apple-silicon-support&ref=main";
+      flake = false;
     };
 
     asahi-vendorfw = {
-      url = "./modules/asahi-vendorfw";
+      url = "path:/boot/vendorfw";
+      flake = false;
     };
 
     ################### Utility Modules ###################
@@ -164,10 +165,8 @@
     let
       ### Values & helpers
       mkFinalConfig =
-        builder: config-base: option-set:
-        builder (config-base // { modules = config-base.modules ++ [ option-set ]; });
-
-      theme-file = ./system/common/theme/gruvbox.nix;
+        builder: config-base: additionnal-modules:
+        builder (config-base // { modules = config-base.modules ++ additionnal-modules; });
 
       ################### Default general purpose configs ###################
       # MARK: Default general purpose configs
@@ -216,14 +215,14 @@
             camille-passwd.neededForUsers = true;
           };
         };
+
+      theme-file = ./modules/theme/gruvbox.nix;
     in
     {
       darwinConfigurations =
         let
           ################### Default darwin-config ###################
           # MARK: Darwin Configs
-
-          system = "aarch64-darwin";
 
           ### Default module import
           default-modules = [
@@ -299,9 +298,9 @@
           ################### Full config generic ###################
           # MARK: Darwin full-generic
 
-          full-generic = {
+          full-aarch64 = {
             ### Module config
-            inherit system; # Inherit system for pkgs
+            system = "aarch64-darwin"; # Inherit system for pkgs
 
             # Inherit needed module args from top-level
             specialArgs = {
@@ -362,9 +361,9 @@
           ################### Minimal config generic ###################
           # MARK: Darwin minimal-generic
 
-          minimal-generic = {
+          minimal-aarch64 = {
             ### Module config
-            inherit system; # Inherit system for pkgs
+            system = "aarch64-darwin"; # Set system for pkgs
 
             # Inherit needed module args from top-level
             specialArgs = {
@@ -404,31 +403,28 @@
           ################### Config assignation ###################
           # MARK: Config assignation
 
-          full = nix-darwin.lib.darwinSystem full-generic;
-          minimal = nix-darwin.lib.darwinSystem minimal-generic;
+          full-generic-aarch64 = nix-darwin.lib.darwinSystem full-aarch64;
+          minimal-generic-aarch64 = nix-darwin.lib.darwinSystem minimal-aarch64;
 
-          "MacBookAirCam-M3" = mkFinalConfig nix-darwin.lib.darwinSystem full-generic (
-            { lib, ... }: {
+          "MacBookAirCam-M3" = mkFinalConfig nix-darwin.lib.darwinSystem full-aarch64 [
+            ({ lib, ... }: {
               networking.hostName = "MacBookAirCam-M3";
-              common.theme.wallpaper = lib.mkForce ./system/common/theme/wallpapers/Golden_Gate_Light.png;
-            }
-          );
-
-          "MacBookAirCam-M3-minimal" = mkFinalConfig nix-darwin.lib.darwinSystem minimal-generic {
-            networking.hostName = "MacBookAirCam-M3";
-            darwin-system.external-drive.enable = true;
-            darwin-system.external-drive.path = "/Volumes/Data";
-          };
-
-          "MacExternal" = mkFinalConfig nix-darwin.lib.darwinSystem full-generic (
-            { lib, ... }:
+              common.theme.wallpaper = lib.mkForce ./modules/theme/wallpapers/Golden_Gate_Light.png;
+            })
+          ];
+          "MacBookAirCam-M3-minimal" = mkFinalConfig nix-darwin.lib.darwinSystem minimal-aarch64 [
             {
+              networking.hostName = "MacBookAirCam-M3";
+              darwin-system.external-drive.enable = true;
+              darwin-system.external-drive.path = "/Volumes/Data";
+            }
+          ];
+          "MacExternal" = mkFinalConfig nix-darwin.lib.darwinSystem full-aarch64 [
+            ({ lib, ... }: {
               networking.hostName = "MacExternal";
               darwin-system.external-drive.enable = lib.mkForce false;
-            }
-          );
-
-          default = mkFinalConfig nix-darwin.lib.darwinSystem full-generic { };
+            })
+          ];
         };
 
       nixosConfigurations =
@@ -478,7 +474,7 @@
           ################### NixOS full-generic ###################
           # MARK: NixOS full-generic
 
-          full-generic = {
+          full-any = {
             ### Module config
             # Inherit needed module args from top-level
             specialArgs = {
@@ -507,11 +503,11 @@
           ################### NixOS full-generic-regular ###################
           # MARK: NixOS full-generic-regular
 
-          full-x86_64 = full-generic // {
+          full-x86_64 = full-any // {
             ### Module config
             system = "x86_64-linux"; # Inherit system for pkgs
 
-            modules = full-generic.modules ++ [
+            modules = full-any.modules ++ [
               ## Main system config
               ./system/nixos/regular/default.nix
 
@@ -525,16 +521,16 @@
           ################### NixOS full-generic-regular ###################
           # MARK: NixOS full-generic-rpi5
 
-          full-aarch64-rpi5 = full-generic // {
+          full-aarch64-rpi5 = full-any // {
             ### Module config
             system = "aarch64-linux";
 
             # Append required special-args
-            specialArgs = full-generic.specialArgs // {
+            specialArgs = full-any.specialArgs // {
               inherit nixos-raspberrypi;
             };
 
-            modules = full-generic.modules ++ [
+            modules = full-any.modules ++ [
               ## Main system config
               ./system/nixos/rpi5/default.nix
               {
@@ -568,11 +564,12 @@
               }
             ];
           };
-          full-aarch64-asahi = full-generic // {
+
+          full-aarch64-asahi = full-any // {
             ### Module config
             system = "aarch64-linux"; # Inherit system for pkgs
 
-            modules = full-generic.modules ++ [
+            modules = full-any.modules ++ [
               ## Main system config
               ./system/nixos/asahi/default.nix
 
@@ -589,19 +586,25 @@
 
           full-generic-x86_64 = nixpkgs.lib.nixosSystem full-x86_64;
           full-generic-aarch64-rpi5 = nixos-raspberrypi.lib.nixosSystem full-aarch64-rpi5;
-          full-generic-aarch64-asahi = nixos-raspberrypi.lib.nixosSystem full-aarch64-asahi;
+          full-generic-aarch64-asahi = nixpkgs.lib.nixosSystem full-aarch64-asahi;
 
-          "MacBookAirCam-M3-asahi" = mkFinalConfig nixpkgs.lib.nixosSystem full-aarch64-asahi {
-            networking.hostName = "MacBookAirCam-M3-asahi";
-          };
-
-          "LenovoYogaCam-i7" = mkFinalConfig nixpkgs.lib.nixosSystem full-x86_64 {
-            networking.hostName = "LenovoYogaCam-i7";
-          };
-
-          "RpiCam-500plus" = mkFinalConfig nixos-raspberrypi.lib.nixosSystem full-aarch64-rpi5 {
-            networking.hostName = "RpiCam-500plus";
-          };
+          "MacBookAirCam-M3-asahi" = mkFinalConfig nixpkgs.lib.nixosSystem full-aarch64-asahi [
+            ./hosts/MacBookAirCam-M3-asahi/hardware-configuration.nix
+            {
+              networking.hostName = "MacBookAirCam-M3-asahi";
+            }
+          ];
+          "RpiCam-500plus" = mkFinalConfig nixos-raspberrypi.lib.nixosSystem full-aarch64-rpi5 [
+            ./hosts/RpiCam-500plus/hardware-configuration.nix
+            {
+              networking.hostName = "RpiCam-500plus";
+            }
+          ];
+          "LenovoYogaCam-i7" = mkFinalConfig nixpkgs.lib.nixosSystem full-x86_64 [
+            {
+              networking.hostName = "LenovoYogaCam-i7";
+            }
+          ];
         };
 
       ################### Pkgs set exposition ###################
@@ -610,8 +613,8 @@
       # Eg `nix build nix build .#ft-haptics`
 
       packages = {
-        aarch64-darwin = self.darwinConfigurations.full.pkgs;
-        aarch64-linux = self.nixosConfigurations.full-generic-aarch64-rpi5.pkgs;
+        aarch64-darwin = self.darwinConfigurations.full-generic-aarch64.pkgs;
+        aarch64-linux = self.nixosConfigurations.full-generic-aarch64-asahi.pkgs;
         x86_64-linux = self.nixosConfigurations.full-generic-x86_64.pkgs;
       };
     };

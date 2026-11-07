@@ -36,18 +36,17 @@
       }
     },
     "asahi-vendorfw": {
-      "inputs": {
-        "boot-vendorfw": "boot-vendorfw"
-      },
+      "flake": false,
       "locked": {
-        "path": "./modules/asahi-vendorfw",
+        "lastModified": 1793913770,
+        "narHash": "sha256-AZulfDl3xfd9Kbc3hvhL6sQG81/ptA1NAyT7iiZO/2A=",
+        "path": "/boot/vendorfw",
         "type": "path"
       },
       "original": {
-        "path": "./modules/asahi-vendorfw",
+        "path": "/boot/vendorfw",
         "type": "path"
-      },
-      "parent": []
+      }
     },
     "base16": {
       "inputs": {
@@ -115,19 +114,6 @@
         "repo": "base16-vim",
         "rev": "577fe8125d74ff456cf942c733a85d769afe58b7",
         "type": "github"
-      }
-    },
-    "boot-vendorfw": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1793913770,
-        "narHash": "sha256-AZulfDl3xfd9Kbc3hvhL6sQG81/ptA1NAyT7iiZO/2A=",
-        "path": "/boot/vendorfw",
-        "type": "path"
-      },
-      "original": {
-        "path": "/boot/vendorfw",
-        "type": "path"
       }
     },
     "brew-src": {
