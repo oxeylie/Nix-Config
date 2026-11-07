@@ -570,7 +570,7 @@
           };
           full-aarch64-asahi = full-generic // {
             ### Module config
-            system = "x86_64-linux"; # Inherit system for pkgs
+            system = "aarch64-linux"; # Inherit system for pkgs
 
             modules = full-generic.modules ++ [
               ## Main system config
