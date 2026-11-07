@@ -10,6 +10,7 @@
 
     home.packages = lib.optionals config.home-config.gui [
       pkgs.deskflow
+      pkgs.gimp
     ];
   };
 }
