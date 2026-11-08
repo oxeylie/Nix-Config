@@ -1,10 +1,15 @@
-{ inputs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
     "${inputs.apple-silicon-support}/default.nix"
   ];
 
   config = {
+    environement.systemPackages = with pkgs; [
+      asahi-bless
+      asahi-nvram
+    ];
+
     # Bootloader settings
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = false;
