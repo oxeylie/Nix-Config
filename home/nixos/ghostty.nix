@@ -7,7 +7,7 @@
 }:
 let
   theme = global-config.common.theme;
-  ghostty-theme = import ../configs/ghostty-theme.nix { inherit theme; };
+  ghostty-theme = import ../common/ghostty-theme.nix { inherit theme; };
 in
 {
   stylix.targets.ghostty.enable = false;

@@ -1,4 +1,9 @@
-{ lib, global-config, ... }:
+{
+  lib,
+  global-config,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ../common/default.nix
@@ -12,7 +17,7 @@
   ];
 
   home-config.status-bar = lib.mkDefault false;
-  home-config.fastfetch.logo = "${../configs/fastfetch-logo.txt}";
+  home-config.fastfetch.logo = import ./fastfetch-logo.nix { inherit pkgs; };
   home-config.fastfetch.osString = "/\\/\\acOS ";
 
   # Higher priority than makedefault but lower than standard definition

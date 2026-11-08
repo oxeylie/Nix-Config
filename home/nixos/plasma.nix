@@ -27,12 +27,9 @@ in
 
       ## Theming
       # [THEME DEPENDENT]
-      configFile.kdeglobals.General = lib.optionalAttrs theme.enable {
-        AccentColor = "${themeUtils.RGBStringSep "," (themeUtils.hexToRGB theme.colors.accent)}";
-        LastUsedCustomAccentColor = "${themeUtils.RGBStringSep "," (
-          themeUtils.hexToRGB theme.colors.accent
-        )}";
-      };
+      configFile.kdeglobals = lib.mkIf theme.enable (
+        import ./plasma-theme.nix { inherit theme themeUtils; }
+      );
 
       workspace = {
         lookAndFeel = "org.kde.breezedark.desktop";

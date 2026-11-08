@@ -11,7 +11,7 @@ let
   theme = global-config.common.theme;
   safe_theme_name = "custom_theme";
 
-  sketchybar-theme = import ../configs/sketchybar-theme.nix {
+  sketchybar-theme = import ./sketchybar-theme.nix {
     inherit theme themeUtils safe_theme_name;
   };
 in

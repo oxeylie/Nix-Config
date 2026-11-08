@@ -94,40 +94,44 @@ in
     };
 
     vs-theme = mkOption {
-      type = types.nullOr (types.submodule {
-        options = {
-          package = mkOption {
-            type = types.nullOr types.package;
-            default = null;
-            description = "VSCode theme package";
+      type = types.nullOr (
+        types.submodule {
+          options = {
+            package = mkOption {
+              type = types.nullOr types.package;
+              default = null;
+              description = "VSCode theme package";
+            };
+            name = mkOption {
+              type = types.str;
+              description = "VSCode theme name";
+            };
           };
-          name = mkOption {
-            type = types.str;
-            description = "VSCode theme name";
-          };
-        };
-      });
+        }
+      );
       default = null;
     };
 
     nvim-theme = mkOption {
-      type = types.nullOr (types.submodule {
-        options = {
-          package = mkOption {
-            type = types.package;
-            description = "NVIM theme package";
+      type = types.nullOr (
+        types.submodule {
+          options = {
+            package = mkOption {
+              type = types.package;
+              description = "NVIM theme package";
+            };
+            name = mkOption {
+              type = types.str;
+              description = "NVIM theme name";
+            };
+            options = mkOption {
+              type = types.nullOr types.attrs;
+              default = null;
+              description = "NVIM theme options";
+            };
           };
-          name = mkOption {
-            type = types.str;
-            description = "NVIM theme name";
-          };
-          options = mkOption {
-            type = types.nullOr types.attrs;
-            default = null;
-            description = "NVIM theme options";
-          };
-        };
-      });
+        }
+      );
       default = null;
     };
 
@@ -167,6 +171,7 @@ in
         "f" = 15;
       };
 
+      roundInt = f: if f - (builtins.floor f) < 0.5 then builtins.floor f else builtins.ceil f;
       pow =
         base: exponent:
         let
@@ -263,7 +268,10 @@ in
             (hexToDec (builtins.substring 4 2 hexvalue))
           ];
 
-        RGBtoFloatRGB = rgb: map (v: v / 255.0) rgb;
+        brightenRBG = factor: rgb: map (c: roundInt (c + (255 - c) * factor)) rgb;
+        darkenRGB = factor: rgb: map (c: roundInt (c - c * factor)) rgb;
+
+        RGBtoFloatRGB = map (v: v / 255.0);
         RGBStringSep = sep: rgb: lib.concatStringsSep sep (map (v: toString v) rgb);
       };
     };

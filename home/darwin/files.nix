@@ -42,8 +42,8 @@ let
   theme = global-config.common.theme;
 
   # [THEME DEPENDENT]
-  prismlauncher-theme = import ../configs/prismlauncher-theme.nix { inherit theme; };
-  xcode-theme = import ../configs/xcode-theme.nix { inherit theme themeUtils; };
+  prismlauncher-theme = import ./prismlauncher-theme.nix { inherit theme; };
+  xcode-theme = import ./xcode-theme.nix { inherit theme themeUtils; };
 
   xcode-theme-dir = pkgs.runCommand "xcode-themes" { } ''
     mkdir -p $out;

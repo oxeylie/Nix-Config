@@ -2,8 +2,8 @@
 {
   options = {
     home-config.fastfetch.logo = lib.mkOption {
-      type = lib.types.str;
-      default = "";
+      type = lib.types.nullOr lib.types.path;
+      default = null;
       example = lib.literalExpression "";
       description = ''
         Configure the logo type
@@ -24,7 +24,8 @@
       enable = true;
       settings = {
         logo = {
-          source = config.home-config.fastfetch.logo;
+          source =
+            if config.home-config.fastfetch.logo != null then "${config.home-config.fastfetch.logo}" else "";
           # "type"= "auto";
           color = {
             "1" = # "38;5;153"
