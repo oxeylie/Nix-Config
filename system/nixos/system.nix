@@ -71,7 +71,7 @@
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.camille = {
       isNormalUser = true;
-      description = "Camille T";
+      description = "Camille";
       hashedPasswordFile = config.sops.secrets.camille-passwd.path;
       extraGroups = [
         "networkmanager"

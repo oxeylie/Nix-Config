@@ -5,7 +5,7 @@
   ];
 
   config = {
-    environement.systemPackages = with pkgs; [
+    environment.systemPackages = with pkgs; [
       asahi-bless
       asahi-nvram
     ];
