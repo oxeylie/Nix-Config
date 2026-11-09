@@ -137,11 +137,10 @@ in
                     "org.kde.plasma.bluetooth"
                     "org.kde.plasma.battery"
                     "org.kde.plasma.brightness"
+                    "org.kde.clipboard"
                   ];
                   hidden = [
-                    "org.kde.kscreen"
                     "org.kde.mercuro.contact.applet"
-                    "org.kde.clipboard"
                   ];
                 };
               }

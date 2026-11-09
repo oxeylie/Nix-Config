@@ -235,5 +235,4 @@ in
         RGBStringSep = sep: rgb: lib.concatStringsSep sep (map (v: toString v) rgb);
       };
     };
-
 }

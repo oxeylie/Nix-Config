@@ -1,4 +1,10 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  themeUtils,
+  ...
+}:
 {
   config = {
 
@@ -37,7 +43,39 @@
         LC_MEASUREMENT = "fr_FR.UTF-8"; # Metric units
       };
     };
-    console.keyMap = "fr";
+
+    console = {
+      keyMap = "fr";
+      colors =
+        let
+          theme = config.common.theme;
+          colors = theme.colors;
+        in
+        lib.optionals theme.enable (
+          map (v: themeUtils.hexColorToHexValue v) [
+            "#000000"
+            colors.colors.red
+            colors.colors.green
+            colors.colors.yellow
+            colors.colors.blue
+            colors.colors.purple
+            colors.colors.cyan
+            colors.text.primary
+            colors.text.muted
+            colors.colors_variant.red
+            colors.colors_variant.green
+            colors.colors_variant.yellow
+            colors.colors_variant.blue
+            colors.colors_variant.purple
+            colors.colors_variant.cyan
+            colors.text.primary
+          ]
+        );
+
+    };
+
+    stylix.targets.console.enable = false;
+    stylix.targets.nixos-icons.enable = false;
 
     ## Hardware config
     # Audio + video
@@ -78,6 +116,8 @@
         "wheel"
       ];
     };
+
+    virtualisation.docker.enable = true;
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

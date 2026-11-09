@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   plasma-enable = config.nixos-system.plasma6.enable;
 in
@@ -8,7 +13,6 @@ in
   };
 
   config = lib.mkIf plasma-enable {
-
     # Enable the X11 windowing system (login primarly)
     services.xserver = {
       enable = true;
@@ -17,15 +21,20 @@ in
         variant = "";
       };
     };
-
     # Enable plasma desktop manager
     services.desktopManager.plasma6.enable = true;
     services.displayManager.sddm = {
       enable = true;
+      theme = "breeze";
       wayland.enable = true;
     };
 
-    virtualisation.docker.enable = true;
+    environment.systemPackages = [
+      (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+        [General]
+        background=${config.common.theme.wallpaper}
+      '')
+    ];
 
     stylix.targets = {
       qt.enable = false;
