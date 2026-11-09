@@ -12,12 +12,8 @@ in
   ${safe_theme_name} = {
     bar = {
       background = function(tpf, tpfunc)
-  	    if tonumber(os_version[1]) >= 27 then 
-  				return tpfunc(0x${if (theme.theme == "dark") then "080808" else "ffffff"}, 160)
-  			else
-  				return tpfunc(0x${if (theme.theme == "dark") then "161616" else "ffffff"}, 145)
-  	    end
-  		end,
+        return tpfunc(0x${themeUtils.RGBToHex (themeUtils.darkenRGB 0.2 (themeUtils.hexToRGB clrs.backgrounds.base))}, 160)
+      end,
       border = function(tpf, tpfunc)
         return tpfunc(0x808080, tpf - 20)
       end

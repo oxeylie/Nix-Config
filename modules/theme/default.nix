@@ -172,27 +172,6 @@ in
       };
 
       roundInt = f: if f - (builtins.floor f) < 0.5 then builtins.floor f else builtins.ceil f;
-      pow =
-        base: exponent:
-        let
-          inherit (lib) mod;
-        in
-        if exponent > 1 then
-          let
-            x = pow base (exponent / 2);
-            odd_exp = mod exponent 2 == 1;
-          in
-          x * x * (if odd_exp then base else 1)
-        else if exponent == 1 then
-          base
-        else if exponent == 0 && base == 0 then
-          throw "undefined"
-        else if exponent == 0 then
-          1
-        else
-          throw "undefined";
-
-      base16To10 = exponent: scalar: scalar * pow 16 exponent;
 
       base16_scheme = {
         system = "base16";
@@ -240,33 +219,14 @@ in
           else
             throw "Character ${hex} is not a hexadecimal value.";
 
-        hexToDec =
-          hex:
-          let
-            inherit (lib)
-              stringToCharacters
-              reverseList
-              imap0
-              foldl
-              ;
-            decimals = map hexCharToDec (stringToCharacters hex);
-            decimalsAscending = reverseList decimals;
-            decimalsPowered = imap0 base16To10 decimalsAscending;
-          in
-          foldl builtins.add 0 decimalsPowered;
-
         hexColorToHexValue = hex: builtins.substring 1 6 hex;
 
-        hexToRGB =
-          hex:
-          let
-            hexvalue = hexColorToHexValue hex;
-          in
-          [
-            (hexToDec (builtins.substring 0 2 hexvalue))
-            (hexToDec (builtins.substring 2 2 hexvalue))
-            (hexToDec (builtins.substring 4 2 hexvalue))
-          ];
+        RGBToHex = RBG: lib.concatStrings (map (v: lib.toHexString v) RBG);
+        hexToRGB = hex: [
+          (lib.fromHexString (builtins.substring 0 2 (hexColorToHexValue hex)))
+          (lib.fromHexString (builtins.substring 2 2 (hexColorToHexValue hex)))
+          (lib.fromHexString (builtins.substring 4 2 (hexColorToHexValue hex)))
+        ];
 
         brightenRBG = factor: rgb: map (c: roundInt (c + (255 - c) * factor)) rgb;
         darkenRGB = factor: rgb: map (c: roundInt (c - c * factor)) rgb;
