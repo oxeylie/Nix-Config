@@ -407,10 +407,9 @@
           minimal-generic-aarch64 = nix-darwin.lib.darwinSystem minimal-aarch64;
 
           "MacBookAirCam-M3" = mkFinalConfig nix-darwin.lib.darwinSystem full-aarch64 [
-            ({ lib, ... }: {
+            {
               networking.hostName = "MacBookAirCam-M3";
-              common.theme.wallpaper = lib.mkForce ./modules/theme/wallpapers/Golden_Gate_Light.png;
-            })
+            }
           ];
           "MacBookAirCam-M3-minimal" = mkFinalConfig nix-darwin.lib.darwinSystem minimal-aarch64 [
             {
