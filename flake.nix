@@ -109,10 +109,6 @@
       url = "github:deskflow/homebrew-tap";
       flake = false;
     };
-    homebrew-airwave = {
-      url = "github:sallliisa/homebrew-airwave";
-      flake = false;
-    };
     homebrew-sill = {
       url = "github:saffsanity/homebrew-sill";
       flake = false;
@@ -286,7 +282,6 @@
                     "Sirakugir-App/homebrew-sirakugir" = inputs.homebrew-sirakugir;
                     "keith/homebrew-formulae" = inputs.homebrew-keith;
                     "deskflow/homebrew-tap" = inputs.homebrew-deskflow;
-                    "sallliisa/homebrew-airwave" = inputs.homebrew-airwave;
                     "saffsanity/homebrew-sill" = inputs.homebrew-sill;
                     "nohajc/homebrew-anylinuxfs" = inputs.homebrew-anylinuxfs;
                   };

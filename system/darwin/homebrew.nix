@@ -52,7 +52,6 @@
           "radix"
           # "vorssaint"
           "finetune"
-          "airwave"
           "sill"
           #"picoscope"
 
@@ -77,6 +76,10 @@
         ]
         ++ lib.optionals config.homebrew-pkgs.brews [
           "anylinuxfs"
+          "json-c"
+          "libunistring"
+          "gettext"
+          "util-linux"
           "betterdisplaycli"
           "mole"
         ]

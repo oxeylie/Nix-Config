@@ -12,7 +12,7 @@ in
   ${safe_theme_name} = {
     bar = {
       background = function(tpf, tpfunc)
-        return tpfunc(0x${themeUtils.RGBToHex (themeUtils.darkenRGB 0.2 (themeUtils.hexToRGB clrs.backgrounds.base))}, 160)
+        return tpfunc(0x${themeUtils.RGBToHex (themeUtils.darkenRGB 0.4 (themeUtils.hexToRGB clrs.backgrounds.base))}, 200)
       end,
       border = function(tpf, tpfunc)
         return tpfunc(0x808080, tpf - 20)

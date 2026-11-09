@@ -2,7 +2,7 @@
 {
   name = "gruvbox_dark";
 
-  wallpaper = ./wallpapers/Gravity_Gruvbox.png;
+  wallpaper = ./wallpapers/Fracture.png;
 
   theme = "dark";
 
