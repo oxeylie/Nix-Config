@@ -536,7 +536,7 @@
               {
                 imports = with nixos-raspberrypi.nixosModules; [
                   raspberry-pi-5.base
-                  raspberry-pi-5.page-size-16k
+                  # raspberry-pi-5.page-size-16k
                   raspberry-pi-5.display-vc4
                   raspberry-pi-5.bluetooth
                 ];
@@ -544,23 +544,23 @@
                 ## Home manager config
                 home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
 
-                ## Patches
-                nixpkgs.overlays = [
-                  (final: prev: {
-                    jdk17 = prev.jdk17.overrideAttrs (old: {
-                      enableParallelBuilding = false;
-                    });
-                    power-profiles-daemon = prev.power-profiles-daemon.overrideAttrs (old: {
-                      doCheck = false;
-                      mesonFlags = (old.mesonFlags or [ ]) ++ [
-                        "-Dtests=false"
-                      ];
-                    });
-                    sdl3 = prev.sdl3.overrideAttrs (old: {
-                      doCheck = false;
-                    });
-                  })
-                ];
+                # ## Patches
+                # nixpkgs.overlays = [
+                #   (final: prev: {
+                #     jdk17 = prev.jdk17.overrideAttrs (old: {
+                #       enableParallelBuilding = false;
+                #     });
+                #     power-profiles-daemon = prev.power-profiles-daemon.overrideAttrs (old: {
+                #       doCheck = false;
+                #       mesonFlags = (old.mesonFlags or [ ]) ++ [
+                #         "-Dtests=false"
+                #       ];
+                #     });
+                #     sdl3 = prev.sdl3.overrideAttrs (old: {
+                #       doCheck = false;
+                #     });
+                #   })
+                # ];
               }
             ];
           };
