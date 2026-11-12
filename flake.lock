@@ -4,11 +4,11 @@
       "flake": false,
       "locked": {
         "dir": "apple-silicon-support",
-        "lastModified": 1793951909,
-        "narHash": "sha256-mA17MzIYFxeoo6mOyuspry6WIm7/f8m7gDAcy3o/jj4=",
+        "lastModified": 1794382742,
+        "narHash": "sha256-dCttiJMmGw71BAHvH9GObiNkumz+Q0FUe/XRNCq1M4M=",
         "owner": "nix-community",
         "repo": "nixos-apple-silicon",
-        "rev": "73301d52f114946d53e62902692c36b0fea0c904",
+        "rev": "5de1c7ae865d645a3ebcc7d2ba5a13b9b50c0c16",
         "type": "github"
       },
       "original": {
@@ -539,11 +539,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1792842277,
-        "narHash": "sha256-pGPnZGi8y9d76xNeracniXO3dsYVROEmMkMc8jD0Ihc=",
+        "lastModified": 1794158174,
+        "narHash": "sha256-IzmtpTUNYk6hfRlNwQKVxgJXHQSe1LltY+mrTUtVm8E=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d3b13ad75cc492690728f9307e443dec9ef9a20e",
+        "rev": "f6bf1059f02576e0b913c7b49d5e4eb6dda9cc22",
         "type": "github"
       },
       "original": {
