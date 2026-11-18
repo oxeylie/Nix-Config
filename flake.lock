@@ -685,11 +685,11 @@
     "sketchybar-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1793569440,
-        "narHash": "sha256-h5jVj81yJ9oTYiPnM7cV9pb5rfzUcje+Wrr1Io0c9OQ=",
+        "lastModified": 1795014038,
+        "narHash": "sha256-ibOuhcVrm1w0w7yVfI4jfwRHLScsUfotAVPzF0Tthqo=",
         "owner": "oxeylie",
         "repo": "sketchybar-config",
-        "rev": "d01dff6ed2a015d2fb78d6b67a341bba3000f10e",
+        "rev": "bbc81ce1aa0c24a71865107047cb4fb7c9f43972",
         "type": "github"
       },
       "original": {
