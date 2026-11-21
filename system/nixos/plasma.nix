@@ -36,6 +36,18 @@ in
       '')
     ];
 
+    services.accounts-daemon.enable = true;
+    systemd.tmpfiles.rules = [
+      "d /var/lib/AccountsService/icons 0755 root root -"
+      "d /var/lib/AccountsService/users 0755 root root -"
+      "L+ /var/lib/AccountsService/icons/${config.users.users.camille.name} - - - - ${./../../resources/oxeylie.jpg}"
+      "L+ /var/lib/AccountsService/users/${config.users.users.camille.name} - - - - ${pkgs.writeText config.users.users.camille.name ''
+        [User]
+        Icon=/var/lib/AccountsService/icons/${config.users.users.camille.name}
+        SystemAccount=false
+      ''}"
+    ];
+
     stylix.targets = {
       qt.enable = false;
     };
