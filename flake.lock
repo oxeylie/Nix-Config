@@ -383,6 +383,25 @@
         "type": "github"
       }
     },
+    "m1n1-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795198489,
+        "narHash": "sha256-JoJMSoiK1T9heZPOxwgkYYaIyesXnYywwqrFz0pIdKM=",
+        "ref": "main",
+        "rev": "5e3a756398bfe50189a1018ff2b876d61d395c08",
+        "revCount": 2829,
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/AsahiLinux/m1n1"
+      },
+      "original": {
+        "ref": "main",
+        "submodules": true,
+        "type": "git",
+        "url": "https://github.com/AsahiLinux/m1n1"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -634,6 +653,7 @@
         "homebrew-keith": "homebrew-keith",
         "homebrew-sill": "homebrew-sill",
         "homebrew-sirakugir": "homebrew-sirakugir",
+        "m1n1-src": "m1n1-src",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nix-vscode-extensions": "nix-vscode-extensions",

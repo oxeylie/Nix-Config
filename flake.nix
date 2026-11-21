@@ -37,10 +37,10 @@
       flake = false;
     };
 
-    # asahi-vendorfw = {
-    #   url = "path:/boot/vendorfw";
-    #   flake = false;
-    # };
+    m1n1-src = {
+      url = "git+https://github.com/AsahiLinux/m1n1?submodules=1&ref=main";
+      flake = false;
+    };
 
     ################### Utility Modules ###################
 
@@ -530,31 +530,13 @@
               {
                 imports = with nixos-raspberrypi.nixosModules; [
                   raspberry-pi-5.base
-                  # raspberry-pi-5.page-size-16k
+                  # raspberry-pi-5.page-size-16k # Warn: Causes a local build of almost all pkgs
                   raspberry-pi-5.display-vc4
                   raspberry-pi-5.bluetooth
                 ];
 
                 ## Home manager config
                 home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
-
-                # ## Patches
-                # nixpkgs.overlays = [
-                #   (final: prev: {
-                #     jdk17 = prev.jdk17.overrideAttrs (old: {
-                #       enableParallelBuilding = false;
-                #     });
-                #     power-profiles-daemon = prev.power-profiles-daemon.overrideAttrs (old: {
-                #       doCheck = false;
-                #       mesonFlags = (old.mesonFlags or [ ]) ++ [
-                #         "-Dtests=false"
-                #       ];
-                #     });
-                #     sdl3 = prev.sdl3.overrideAttrs (old: {
-                #       doCheck = false;
-                #     });
-                #   })
-                # ];
               }
             ];
           };
@@ -567,10 +549,25 @@
               ## Main system config
               ./system/nixos/asahi/default.nix
 
-              {
+              ({ lib, ... }: {
                 ## Home manager config
                 home-manager.users.camille.imports = [ ./home/nixos/regular/default.nix ];
-              }
+
+                nixpkgs.overlays = lib.mkAfter [
+                  (final: prev: {
+                    m1n1 = prev.m1n1.overrideAttrs (old: {
+                      src = inputs.m1n1-src;
+                      version = "main-${inputs.m1n1-src.shortRev or "dirty"}";
+                      cargoDeps = final.rustPlatform.importCargoLock {
+                        lockFile = "${inputs.m1n1-src}/rust/Cargo.lock";
+                        outputHashes = {
+                          "fatfs-0.4.0" = "sha256-tcchdtuIIN8fkLy/qf9hazkPGT2kdYuPUtC/C1bRfIQ=";
+                        };
+                      };
+                    });
+                  })
+                ];
+              })
             ];
           };
         in

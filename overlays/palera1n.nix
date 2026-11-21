@@ -1,11 +1,11 @@
 { pkgs, lib, ... }:
-pkgs.stdenv.mkDerivation {
+pkgs.stdenv.mkDerivation rec {
 
   name = "palera1n";
-  version = "1.0";
+  version = "2.3";
 
   src = pkgs.fetchurl {
-    url = "https://github.com/palera1n/palera1n/releases/download/v2.3/palera1n-macos-arm64";
+    url = "https://github.com/palera1n/palera1n/releases/download/v${version}/palera1n-macos-arm64";
     hash = "sha256-8hSkaXjO07ZqslVf9RaB8hvxP9l9W2kqpCCkumpx0mM=";
   }; # Or fetchFromGitHub if remote
 
