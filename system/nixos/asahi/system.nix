@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 {
   imports = [
-    "${inputs.apple-silicon-support}/default.nix"
+    "${inputs.nixos-apple-silicon}/default.nix"
   ];
 
   config = {
@@ -20,7 +20,7 @@
       enable = true;
       avd.enable = true;
       avd.vaapi-support = false;
-      peripheralFirmwareDirectory = "${inputs.asahi-vendorfw}";
+      # peripheralFirmwareDirectory = "${inputs.asahi-vendorfw}";
       # inherit (inputs.asahi-vendorfw.lib.hardware.asahi) peripheralFirmwareDirectory;
     };
   };

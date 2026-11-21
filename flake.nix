@@ -32,15 +32,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    apple-silicon-support = {
+    nixos-apple-silicon = {
       url = "github:nix-community/nixos-apple-silicon/?dir=apple-silicon-support&ref=main";
       flake = false;
     };
 
-    asahi-vendorfw = {
-      url = "path:/boot/vendorfw";
-      flake = false;
-    };
+    # asahi-vendorfw = {
+    #   url = "path:/boot/vendorfw";
+    #   flake = false;
+    # };
 
     ################### Utility Modules ###################
 
