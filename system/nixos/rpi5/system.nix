@@ -1,6 +1,5 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
@@ -21,26 +20,28 @@
       ];
 
     hardware.i2c.enable = true;
-
-    # Export pwm to sysfs
-    hardware.raspberry-pi.config.all = {
-      dt-overlays.pwm = {
-        enable = true;
-        params = {
-          pin = {
-            enable = true;
-            value = 18;
-          };
-          func = {
-            enable = true;
-            value = 2;
-          };
-        };
-      };
+    boot.loader.raspberry-pi = {
+      enable = true;
+      bootloader = "kernel";
     };
 
-    ## RPI Boot loader & kernel - do not touch.
-    boot.loader.raspberry-pi.bootloader = "kernel";
+    # Export pwm to sysfs
+    # hardware.raspberry-pi.config.all = {
+    #   dt-overlays.pwm = {
+    #     enable = true;
+    #     params = {
+    #       pin = {
+    #         enable = true;
+    #         value = 18;
+    #       };
+    #       func = {
+    #         enable = true;
+    #         value = 2;
+    #       };
+    #     };
+    #   };
+    # };
+
     # boot.kernelPatches = [
     #   {
     #     name = "allow devmem";
@@ -51,15 +52,5 @@
     #     };
     #   }
     # ];
-
-    # system.nixos.tags =
-    #   let
-    #     cfg = config.boot.loader.raspberry-pi;
-    #   in
-    #   [
-    #     "raspberry-pi-${cfg.variant}"
-    #     cfg.bootloader
-    #     config.boot.kernelPackages.kernel.version
-    #   ];
   };
 }
