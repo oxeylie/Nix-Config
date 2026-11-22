@@ -508,21 +508,19 @@
         "argononed": "argononed",
         "flake-compat": "flake-compat",
         "nixos-images": "nixos-images",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1782759920,
-        "narHash": "sha256-khAAYB9NaNONIBOtjjhiNIIAu5yJedmYrKJRMUtrKF8=",
+        "lastModified": 1795132576,
+        "narHash": "sha256-NgCYUbNgGcrTyIzNpaCVSiRR3TmCDCfx4QX02NebE9A=",
         "owner": "nvmd",
         "repo": "nixos-raspberrypi",
-        "rev": "19f53ada5ede32d171956f06a842e72016010931",
+        "rev": "7920be4944456464b22fb8ce6c387a346b3047e5",
         "type": "github"
       },
       "original": {
         "owner": "nvmd",
-        "ref": "nixos-unstable",
+        "ref": "main",
         "repo": "nixos-raspberrypi",
         "type": "github"
       }
@@ -545,6 +543,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1795258312,
+        "narHash": "sha256-IEuDsf80ubivfpidbRsIm30HVo7PZIdZt1stRsbaY4Y=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "94c3211b0ee8ba969a3f12eb4aff8ba0f72971dd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-26.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1794158174,
         "narHash": "sha256-IzmtpTUNYk6hfRlNwQKVxgJXHQSe1LltY+mrTUtVm8E=",
         "owner": "NixOS",
@@ -559,7 +573,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1785454630,
         "narHash": "sha256-LQy14TZp77TwbQf40gg1V3jo8FwJG0jGDkAH+zRHqg8=",
@@ -659,7 +673,7 @@
         "nix-vscode-extensions": "nix-vscode-extensions",
         "nixos-apple-silicon": "nixos-apple-silicon",
         "nixos-raspberrypi": "nixos-raspberrypi",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "plasma-manager": "plasma-manager",
         "rift": "rift",
         "rust-overlay": "rust-overlay",
@@ -734,7 +748,7 @@
         "firefox-gnome-theme": "firefox-gnome-theme",
         "flake-parts": "flake-parts",
         "gnome-shell": "gnome-shell",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nur": "nur",
         "systems": "systems",
         "tinted-kitty": "tinted-kitty",

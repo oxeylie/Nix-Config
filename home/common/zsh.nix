@@ -49,6 +49,13 @@ in
       EDITOR = "${pkgs.neovim}/bin/nvim";
     };
 
+    history = {
+      size = 50000;
+      ignoreDups = true;
+      share = true;
+      extended = true;
+    };
+
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting = {

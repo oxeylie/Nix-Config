@@ -28,8 +28,8 @@
     };
 
     nixos-raspberrypi = {
-      url = "github:nvmd/nixos-raspberrypi/nixos-unstable";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nvmd/nixos-raspberrypi/main";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-apple-silicon = {
@@ -527,17 +527,43 @@
             modules = full-any.modules ++ [
               ## Main system config
               ./system/nixos/rpi5/default.nix
-              {
+              ({ pkgs, lib, ... }: {
                 imports = with nixos-raspberrypi.nixosModules; [
                   raspberry-pi-5.base
-                  # raspberry-pi-5.page-size-16k # Warn: Causes a local build of almost all pkgs
                   raspberry-pi-5.display-vc4
                   raspberry-pi-5.bluetooth
+                  # raspberry-pi-5.page-size-16k # Warn: Causes a local build of almost all pkgs
                 ];
+
+                nixpkgs.overlays = lib.mkAfter (
+                  with nixos-raspberrypi;
+                  [
+                    # overlays.pkgs
+                    overlays.vendor-pkgs
+                    overlays.bootloader
+                    overlays.vendor-firmware
+                    overlays.vendor-kernel
+                    overlays.kernel-and-firmware
+                  ]
+                );
+
+                boot.kernelPackages =
+                  let
+                    rpiKernel =
+                      nixos-raspberrypi.legacyPackages.aarch64-linux.linuxAndFirmware.default.linuxPackages_rpi5.kernel;
+                  in
+                  pkgs.linuxPackagesFor (
+                    rpiKernel.overrideAttrs (old: {
+                      passthru = (old.passthru or { }) // {
+                        target = old.passthru.target or "Image";
+                        buildDTBs = old.passthru.buildDTBs or true;
+                      };
+                    })
+                  );
 
                 ## Home manager config
                 home-manager.users.camille.imports = [ ./home/nixos/rpi5/default.nix ];
-              }
+              })
             ];
           };
 
@@ -585,7 +611,7 @@
               networking.hostName = "MacBookAirCam-M3-asahi";
             }
           ];
-          "RpiCam-500plus" = mkFinalConfig nixos-raspberrypi.lib.nixosSystem full-aarch64-rpi5 [
+          "RpiCam-500plus" = mkFinalConfig nixpkgs.lib.nixosSystem full-aarch64-rpi5 [
             ./hosts/RpiCam-500plus/hardware-configuration.nix
             {
               networking.hostName = "RpiCam-500plus";

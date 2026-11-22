@@ -41,25 +41,25 @@
 
     ## RPI Boot loader & kernel - do not touch.
     boot.loader.raspberry-pi.bootloader = "kernel";
-    boot.kernelPatches = [
-      {
-        name = "allow devmem";
-        patch = null;
-        structuredExtraConfig = {
-          STRICT_DEVMEM = lib.kernel.no;
-          IO_STRICT_DEVMEM = lib.kernel.no;
-        };
-      }
-    ];
+    # boot.kernelPatches = [
+    #   {
+    #     name = "allow devmem";
+    #     patch = null;
+    #     structuredExtraConfig = {
+    #       STRICT_DEVMEM = lib.kernel.no;
+    #       IO_STRICT_DEVMEM = lib.kernel.no;
+    #     };
+    #   }
+    # ];
 
-    system.nixos.tags =
-      let
-        cfg = config.boot.loader.raspberry-pi;
-      in
-      [
-        "raspberry-pi-${cfg.variant}"
-        cfg.bootloader
-        config.boot.kernelPackages.kernel.version
-      ];
+    # system.nixos.tags =
+    #   let
+    #     cfg = config.boot.loader.raspberry-pi;
+    #   in
+    #   [
+    #     "raspberry-pi-${cfg.variant}"
+    #     cfg.bootloader
+    #     config.boot.kernelPackages.kernel.version
+    #   ];
   };
 }
