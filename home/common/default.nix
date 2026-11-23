@@ -13,6 +13,7 @@
     ./nvim.nix
     ./fzf.nix
     ./zsh.nix
+    ./direnv.nix
     ./bat.nix
   ];
 
