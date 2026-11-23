@@ -50,6 +50,7 @@
           };
         };
         display = {
+          disableLinewrap = true;
           color = {
             separator = "light_black";
           };
